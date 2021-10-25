@@ -21,7 +21,7 @@ var indx int = 0
 var debug bool = false
 
 //=======================
-const iloscTestow int = 20
+const iloscTestow int = 10
 
 //=======================
 func main() {
@@ -71,6 +71,62 @@ func doIt() {
 	}
 	// dodaj naszybszy samochod do podium
 	podium = append(podium, gr6[0])
+	var gr7 []car
+
+	for i, v := range gr6[:3] {
+		switch v.grpNum {
+		case 1:
+			if i == 0 {
+				gr7 = append(gr7, gr1[1], gr1[2])
+			} else if i == 1 {
+				gr7 = append(gr7, gr1[0], gr1[1])
+
+			} else {
+				gr7 = append(gr7, gr1[0])
+			}
+		case 2:
+			if i == 0 {
+				gr7 = append(gr7, gr2[1], gr2[2])
+			} else if i == 1 {
+				gr7 = append(gr7, gr2[0], gr2[1])
+
+			} else {
+				gr7 = append(gr7, gr2[0])
+			}
+		case 3:
+			if i == 0 {
+				gr7 = append(gr7, gr3[1], gr3[2])
+			} else if i == 1 {
+				gr7 = append(gr7, gr3[0], gr3[1])
+
+			} else {
+				gr7 = append(gr7, gr3[0])
+			}
+		case 4:
+			if i == 0 {
+				gr7 = append(gr7, gr4[1], gr4[2])
+			} else if i == 1 {
+				gr7 = append(gr7, gr4[0], gr4[1])
+
+			} else {
+				gr7 = append(gr7, gr4[0])
+			}
+		case 5:
+			if i == 0 {
+				gr7 = append(gr7, gr5[1], gr5[2])
+			} else if i == 1 {
+				gr7 = append(gr7, gr5[0], gr5[1])
+
+			} else {
+				gr7 = append(gr7, gr5[0])
+			}
+
+		}
+
+	}
+	race(gr7)
+	podium = append(podium, gr7[0], gr7[1])
+	//STARE ROZWIĄZANIE=========
 	// znajdz drugi i trzeci najszybszy samochod poprzez podmienianie [0] samochodu w grupie
 	// samochodem gr6[i] == v
 	// for i, v := range gr6 {
