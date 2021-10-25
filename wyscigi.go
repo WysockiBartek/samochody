@@ -73,58 +73,58 @@ func doIt() {
 	podium = append(podium, gr6[0])
 	// znajdz drugi i trzeci najszybszy samochod poprzez podmienianie [0] samochodu w grupie
 	// samochodem gr6[i] == v
-	for i, v := range gr6 {
-		//pomiń pierwszy smochod poniewaz znajduje sie na podium
-		if i == 0 {
-			continue
-		}
-		// jezeli podium ma 3 samochody przerwij
-		if len(podium) == 3 {
-			break
-		}
-		// jezeli podium ma 2 samochody i najszybszy samochod w func 'final()' to ten sam co w gr6[2]
-		// zrob kolejne okrazenie, tym razem podmien pierwszy samochod w grupie ktorej znajduje sie zamochod
-		// z podium[1]
-		if indx != 0 {
-			v = gr6[i-1]
-			switch {
-			case indx == 1:
-				indx = final(gr1, v)
+	// for i, v := range gr6 {
+	// 	//pomiń pierwszy smochod poniewaz znajduje sie na podium
+	// 	if i == 0 {
+	// 		continue
+	// 	}
+	// 	// jezeli podium ma 3 samochody przerwij
+	// 	if len(podium) == 3 {
+	// 		break
+	// 	}
+	// 	// jezeli podium ma 2 samochody i najszybszy samochod w func 'final()' to ten sam co w gr6[2]
+	// 	// zrob kolejne okrazenie, tym razem podmien pierwszy samochod w grupie ktorej znajduje sie zamochod
+	// 	// z podium[1]
+	// 	if indx != 0 {
+	// 		v = gr6[i-1]
+	// 		switch {
+	// 		case indx == 1:
+	// 			indx = final(gr1, v)
 
-			case indx == 2:
-				indx = final(gr2, v)
+	// 		case indx == 2:
+	// 			indx = final(gr2, v)
 
-			case indx == 3:
-				indx = final(gr3, v)
+	// 		case indx == 3:
+	// 			indx = final(gr3, v)
 
-			case indx == 4:
-				indx = final(gr4, v)
+	// 		case indx == 4:
+	// 			indx = final(gr4, v)
 
-			case indx == 5:
-				indx = final(gr5, v)
+	// 		case indx == 5:
+	// 			indx = final(gr5, v)
 
-			}
-		} else {
-			//normalne poszukiwanie samochodow
-			switch {
-			case gr6[0].grpNum == 1:
-				indx = final(gr1, v)
+	// 		}
+	// 	} else {
+	// 		//normalne poszukiwanie samochodow
+	// 		switch {
+	// 		case gr6[0].grpNum == 1:
+	// 			indx = final(gr1, v)
 
-			case gr6[0].grpNum == 2:
-				indx = final(gr2, v)
+	// 		case gr6[0].grpNum == 2:
+	// 			indx = final(gr2, v)
 
-			case gr6[0].grpNum == 3:
-				indx = final(gr3, v)
+	// 		case gr6[0].grpNum == 3:
+	// 			indx = final(gr3, v)
 
-			case gr6[0].grpNum == 4:
-				indx = final(gr4, v)
+	// 		case gr6[0].grpNum == 4:
+	// 			indx = final(gr4, v)
 
-			case gr6[0].grpNum == 5:
-				indx = final(gr5, v)
+	// 		case gr6[0].grpNum == 5:
+	// 			indx = final(gr5, v)
 
-			}
-		}
-	}
+	// 		}
+	// 	}
+	// }
 	fmt.Println("---- Expected:\n", firstExpected, secondExpected, thirdExpected)
 	fmt.Printf("----Result:\n %v %v %v\n", podium[0].carNum, podium[1].carNum, podium[2].carNum)
 	fmt.Println("==============================")
