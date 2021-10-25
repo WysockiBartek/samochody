@@ -56,11 +56,12 @@ func doIt() {
 		}
 	}
 	// pierwsze 5 okrazen
-	race(gr1)
-	race(gr2)
-	race(gr3)
-	race(gr4)
-	race(gr5)
+	var grs [][]car
+	grs = append(grs, gr1, gr2, gr3, gr4, gr5)
+	for i, _ := range grs {
+		race(grs[i])
+	}
+
 	// stwoz gr6
 	gr6 = append(gr6, gr1[0], gr2[0], gr3[0], gr4[0], gr5[0])
 	// okrazenie nr 6
@@ -71,11 +72,9 @@ func doIt() {
 	}
 	// dodaj naszybszy samochod do podium
 	podium = append(podium, gr6[0])
-	//---------------------------
-	var grs [][]car
-	grs = append(grs, gr1, gr2, gr3, gr4, gr5)
-	var gr7 []car
 
+	//znajdz 2 i 3 miejsce
+	var gr7 []car
 	for i, v := range gr6 {
 		switch i {
 		case 0:
