@@ -71,119 +71,32 @@ func doIt() {
 	}
 	// dodaj naszybszy samochod do podium
 	podium = append(podium, gr6[0])
+	//---------------------------
+	var grs [][]car
+	grs = append(grs, gr1, gr2, gr3, gr4, gr5)
 	var gr7 []car
 
-	for i, v := range gr6[:3] {
-		switch v.grpNum {
+	for i, v := range gr6 {
+		switch i {
+		case 0:
+			gr7 = append(gr7, grs[v.grpNum-1][1], grs[v.grpNum-1][2])
+
 		case 1:
-			if i == 0 {
-				gr7 = append(gr7, gr1[1], gr1[2])
-			} else if i == 1 {
-				gr7 = append(gr7, gr1[0], gr1[1])
-
-			} else {
-				gr7 = append(gr7, gr1[0])
-			}
+			gr7 = append(gr7, grs[v.grpNum-1][0], grs[v.grpNum-1][1])
 		case 2:
-			if i == 0 {
-				gr7 = append(gr7, gr2[1], gr2[2])
-			} else if i == 1 {
-				gr7 = append(gr7, gr2[0], gr2[1])
-
-			} else {
-				gr7 = append(gr7, gr2[0])
-			}
-		case 3:
-			if i == 0 {
-				gr7 = append(gr7, gr3[1], gr3[2])
-			} else if i == 1 {
-				gr7 = append(gr7, gr3[0], gr3[1])
-
-			} else {
-				gr7 = append(gr7, gr3[0])
-			}
-		case 4:
-			if i == 0 {
-				gr7 = append(gr7, gr4[1], gr4[2])
-			} else if i == 1 {
-				gr7 = append(gr7, gr4[0], gr4[1])
-
-			} else {
-				gr7 = append(gr7, gr4[0])
-			}
-		case 5:
-			if i == 0 {
-				gr7 = append(gr7, gr5[1], gr5[2])
-			} else if i == 1 {
-				gr7 = append(gr7, gr5[0], gr5[1])
-
-			} else {
-				gr7 = append(gr7, gr5[0])
-			}
+			gr7 = append(gr7, grs[v.grpNum-1][0])
 
 		}
 
 	}
+
 	race(gr7)
 	podium = append(podium, gr7[0], gr7[1])
-	//STARE ROZWIĄZANIE=========
-	// znajdz drugi i trzeci najszybszy samochod poprzez podmienianie [0] samochodu w grupie
-	// samochodem gr6[i] == v
-	// for i, v := range gr6 {
-	// 	//pomiń pierwszy smochod poniewaz znajduje sie na podium
-	// 	if i == 0 {
-	// 		continue
-	// 	}
-	// 	// jezeli podium ma 3 samochody przerwij
-	// 	if len(podium) == 3 {
-	// 		break
-	// 	}
-	// 	// jezeli podium ma 2 samochody i najszybszy samochod w func 'final()' to ten sam co w gr6[2]
-	// 	// zrob kolejne okrazenie, tym razem podmien pierwszy samochod w grupie ktorej znajduje sie zamochod
-	// 	// z podium[1]
-	// 	if indx != 0 {
-	// 		v = gr6[i-1]
-	// 		switch {
-	// 		case indx == 1:
-	// 			indx = final(gr1, v)
 
-	// 		case indx == 2:
-	// 			indx = final(gr2, v)
-
-	// 		case indx == 3:
-	// 			indx = final(gr3, v)
-
-	// 		case indx == 4:
-	// 			indx = final(gr4, v)
-
-	// 		case indx == 5:
-	// 			indx = final(gr5, v)
-
-	// 		}
-	// 	} else {
-	// 		//normalne poszukiwanie samochodow
-	// 		switch {
-	// 		case gr6[0].grpNum == 1:
-	// 			indx = final(gr1, v)
-
-	// 		case gr6[0].grpNum == 2:
-	// 			indx = final(gr2, v)
-
-	// 		case gr6[0].grpNum == 3:
-	// 			indx = final(gr3, v)
-
-	// 		case gr6[0].grpNum == 4:
-	// 			indx = final(gr4, v)
-
-	// 		case gr6[0].grpNum == 5:
-	// 			indx = final(gr5, v)
-
-	// 		}
-	// 	}
-	// }
 	fmt.Println("---- Expected:\n", firstExpected, secondExpected, thirdExpected)
 	fmt.Printf("----Result:\n %v %v %v\n", podium[0].carNum, podium[1].carNum, podium[2].carNum)
 	fmt.Println("==============================")
+	// fmt.Println(grs)
 }
 
 func createCarsAndGroups() {
@@ -209,45 +122,4 @@ func race(grp []car) {
 	sort.Slice(grp, func(i, j int) bool {
 		return grp[i].place < grp[j].place
 	})
-}
-
-// jak to działa? są tylko dwa racjonalne wytłumaczenia
-// jeden fizyka czarnej dziury...
-// dwa czary
-func final(gr []car, c car) int {
-	grFastest := c
-	gr = append(gr[:0], gr[1:]...)
-	gr = append(gr, c)
-	race(gr)
-	// PS pewnie mogl bym to zrobic w switch-u ale nie chce mi sie przepisywac
-	if debug {
-		fmt.Println("========\n", gr)
-	}
-	if len(podium) == 2 && gr[0] == grFastest && indx == 0 {
-		if debug {
-			fmt.Println("Switch to group of 2-nd fastest car and run it again...")
-		}
-		return podium[1].grpNum
-	} else if grFastest != gr[0] && len(podium) == 2 {
-
-		podium = append(podium, gr[0])
-	} else if grFastest == gr[0] {
-		podium = append(podium, grFastest)
-		if debug {
-			fmt.Println("else if: +1")
-		}
-	} else if c == gr[0] || c == gr[1] && len(podium) < 2 {
-		if debug {
-			fmt.Println("else if: +2")
-		}
-		podium = append(podium, gr[0], gr[1])
-
-	} else {
-		if debug {
-			fmt.Println("else: +1")
-		}
-		podium = append(podium, gr[0])
-
-	}
-	return 0
 }
